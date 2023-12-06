@@ -121,8 +121,8 @@ def update_user(request, user_id):
 
                 if response.status_code == 200:
                     # Redirigir a la lista de usuarios o a una página de éxito
-                    return redirect('list_users', success_message='Usuario creado con éxito')
-
+                    return render(request, 'add_user.html',
+                                  {'form': form, 'success_message': 'Usuario modificado con éxito'})
                 else:
                     return JsonResponse(
                         {'error': f'Error al actualizar usuario en HubSpot. Código de estado: {response.status_code}'},
