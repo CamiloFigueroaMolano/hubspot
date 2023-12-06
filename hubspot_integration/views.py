@@ -11,9 +11,7 @@ from django.shortcuts import render, redirect
 HUBSPOT_API_BASE_URL = "https://api.hubapi.com/crm/v3/objects/contacts/"
 BEARER_TOKEN = "pat-na1-510d140a-4841-429b-8a02-2fa727f869b5"
 
-
 ##################### SE DA MANEJO A LOS ENDPONTS DESDE LOS TEMPLATAES TENIENDO INTERECCION CON EL USUARIO################
-
 
 #Metodo para agregar usuario
 @csrf_exempt
@@ -48,7 +46,8 @@ def add_user(request):
 
                 if response.status_code == 201:
                     # Redirigir a la lista de usuarios
-                    return redirect('list_users')
+                    return render(request, 'add_user.html',
+                                  {'form': form, 'success_message': 'Usuario creado con éxito'})
                 else:
                     return JsonResponse(
                         {'error': f'Error al crear usuario en HubSpot. Código de estado: {response.status_code}'}, status=500)
@@ -122,7 +121,8 @@ def update_user(request, user_id):
 
                 if response.status_code == 200:
                     # Redirigir a la lista de usuarios o a una página de éxito
-                    return redirect('list_users')
+                    return redirect('list_users', success_message='Usuario creado con éxito')
+
                 else:
                     return JsonResponse(
                         {'error': f'Error al actualizar usuario en HubSpot. Código de estado: {response.status_code}'},
