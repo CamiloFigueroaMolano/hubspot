@@ -1,0 +1,58 @@
+<h1>Pruebaa</h1>
+<div class="container mt-5">
+  <label for="buscar">
+    <h3 class="fw-bolder mx-2 ">
+      Buscar
+    </h3>
+  </label>
+  <input type="text" id="buscar"  [(ngModel)]="searchText" (keyup)="buscarContactos()" placeholder="Buscar" class="col col-6 text-center my-3">
+
+  <!-- Mostrar la tabla de todos los contactos si no hay búsqueda activa -->
+  <table class="table" >
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Primer Nombre</th>
+        <th>Segundo Nombre</th>
+        <th>Correo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="!searchText || contactosFiltrados === null">
+      <tr *ngFor="let contactArray of data">
+        <td>{{ contactArray.id }}</td>
+        <td>{{ contactArray.properties.firstname }}</td>
+        <td>{{ contactArray.properties.lastname }}</td>
+        <td>{{ contactArray.properties.email }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="modificarContacto(contactArray.id)">Modificar</button>
+          <button class="btn btn-danger" (click)="eliminarContacto(contactArray.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+
+    <tbody *ngIf="searchText && contactosFiltrados !== null">
+      <!-- Iterar sobre los contactos filtrados y mostrarlos en la tabla -->
+      <tr *ngFor="let contact of contactosFiltrados">
+        <td>{{ contact.id }}</td>
+        <td>{{ contact.properties.firstname }}</td>
+        <td>{{ contact.properties.lastname }}</td>
+        <td>{{ contact.properties.email }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="modificarContacto(contact.id)">Modificar</button>
+          <button class="btn btn-danger" (click)="eliminarContacto(contact.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-success mb-3" (click)="redirectToCreateContact()">Crear Contacto</button>
+
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="errorSearch()" class="alert alert-danger">
+    {{ errorMessage2 }}
+  </div>
+</div>
