@@ -18,6 +18,9 @@ Si estás utilizando Google Chrome y deseas ejecutar la aplicación con ciertas 
 Copy code
 ```bash
 "C:\Program Files\Google\Chrome\Application\chrome.exe" --user-data-dir="C:/ChromeDevSession" --disable-web-security
+o
+& "C:\Program Files\Google\Chrome\Application\chrome.exe" --user-data-dir="C:/ChromeDevSession" --disable-web-security
+
 ```
 Este paso es opcional y se utiliza para desactivar la seguridad web durante el desarrollo.
 
